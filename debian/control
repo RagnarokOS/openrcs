@@ -1,0 +1,16 @@
+Source: openrcs
+Section: shells
+Priority: required
+Maintainer: Ian LeCorbeau <I-LeCorbeau@protonmail.com>
+Build-Depends: 	debhelper-compat (= 13),
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+Homepage: https://github.com/RagnarokOS/openrcs
+Vcs-Git: https://github.com/RagnarokOS/openrcs.git
+Vcs-Browser: https://github.com/RagnarokOS/openrcs
+
+Package: openrcs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: OpenBSD RCS.
+ Portable version of OpenBSD's RCS (Revision Control System).
