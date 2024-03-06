@@ -1,5 +1,5 @@
 # Makefile for OpenBSD's version of RCS (Revision Control System)
-# $Ragnarok: Makefile,v 1.2 2023/09/25 18:27:34 lecorbeau Exp $
+# $Ragnarok: Makefile,v 1.3 2024/03/06 19:25:15 lecorbeau Exp $
 
 include ${TOPDIR}/usr/share/mk/progs.mk
 
@@ -46,6 +46,34 @@ install:
 	install -c -m 444 rcsmerge.1 ${DESTDIR}${MANDIR}/man1
 	install -c -m 444 rlog.1 ${DESTDIR}${MANDIR}/man1
 	install -c -m 444 rcsfile.5 ${DESTDIR}${MANDIR}/man5
+
+deb: all
+	mkdir -p ${DESTDIR}
+	cp -r DEBIAN/ ${DESTDIR}/
+	mkdir -p ${DESTDIR}${BINDIR}
+	mkdir -p ${DESTDIR}${MANDIR}/man1
+	mkdir -p ${DESTDIR}${MANDIR}/man5
+	install ${PROG} ${DESTDIR}/${BINDIR}/${PROG}
+	install ${PROG} ${DESTDIR}/${BINDIR}/ci
+	install ${PROG} ${DESTDIR}/${BINDIR}/co
+	install ${PROG} ${DESTDIR}/${BINDIR}/ident
+	install ${PROG} ${DESTDIR}/${BINDIR}/merge
+	install ${PROG} ${DESTDIR}/${BINDIR}/rcsclean
+	install ${PROG} ${DESTDIR}/${BINDIR}/rcsdiff
+	install ${PROG} ${DESTDIR}/${BINDIR}/rcsmerge
+	install ${PROG} ${DESTDIR}/${BINDIR}/rlog
+	install ${PROG}.1 ${DESTDIR}/${MANDIR}/man1/
+	install ci.1 ${DESTDIR}/${MANDIR}/man1/
+	install co.1 ${DESTDIR}/${MANDIR}/man1/
+	install ident.1 ${DESTDIR}/${MANDIR}/man1/
+	install merge.1 ${DESTDIR}/${MANDIR}/man1/
+	install rcs.1 ${DESTDIR}/${MANDIR}/man1/
+	install rcsclean.1 ${DESTDIR}/${MANDIR}/man1/
+	install rcsdiff.1 ${DESTDIR}/${MANDIR}/man1/
+	install rcsmerge.1 ${DESTDIR}/${MANDIR}/man1/
+	install rlog.1 ${DESTDIR}/${MANDIR}/man1/
+	install rcsfile.5 ${DESTDIR}/${MANDIR}/man5/
+	/usr/bin/dpkg-deb -b ${DESTDIR} .
 
 clean:
 	rm -f ${PROG} ${OBJS} date.c
