@@ -1,14 +1,13 @@
 # Makefile for OpenBSD's version of RCS (Revision Control System)
-# $Ragnarok: Makefile,v 1.3 2024/03/06 19:25:15 lecorbeau Exp $
-
-include ${TOPDIR}/usr/share/mk/progs.mk
+# $Ragnarok: Makefile,v 1.4 2025/03/04 19:30:50 lecorbeau Exp $
 
 CC ?=		cc
-CFLAGS ?=	${O_FLAG} -pipe ${HARDENING_CPPFLAGS} ${HARDENING_CFLAGS}
-CFLAGS +=	${OBSD_INC} -I. -D_GNU_SOURCE
-LDFLAGS +=	${HARDENING_LDFLAGS}
+CFLAGS ?=	-O2 -pipe
+CFLAGS +=	-I/lib/libopenbsd -include openbsd.h -I. -D_GNU_SOURCE
+CPPFLAGS +=	
+LDFLAGS +=	
 
-LIBS =		${OBSD_LIB}
+LIBS =		/lib/libopenbsd/libopenbsd.a
 
 BINDIR =	/usr/bin
 MANDIR =	/usr/share/man
@@ -26,15 +25,15 @@ date.c: date.y
 	mv y.tab.c date.c
 
 install:
-	install -c -s -m 555 ${PROG} ${DESTDIR}${BINDIR}/${PROG}
-	install -c -s -m 555 ${PROG} ${DESTDIR}${BINDIR}/ci
-	install -c -s -m 555 ${PROG} ${DESTDIR}${BINDIR}/co
-	install -c -s -m 555 ${PROG} ${DESTDIR}${BINDIR}/ident
-	install -c -s -m 555 ${PROG} ${DESTDIR}${BINDIR}/merge
-	install -c -s -m 555 ${PROG} ${DESTDIR}${BINDIR}/rcsclean
-	install -c -s -m 555 ${PROG} ${DESTDIR}${BINDIR}/rcsdiff
-	install -c -s -m 555 ${PROG} ${DESTDIR}${BINDIR}/rcsmerge
-	install -c -s -m 555 ${PROG} ${DESTDIR}${BINDIR}/rlog
+	install -c -m 555 ${PROG} ${DESTDIR}${BINDIR}/${PROG}
+	install -c -m 555 ${PROG} ${DESTDIR}${BINDIR}/ci
+	install -c -m 555 ${PROG} ${DESTDIR}${BINDIR}/co
+	install -c -m 555 ${PROG} ${DESTDIR}${BINDIR}/ident
+	install -c -m 555 ${PROG} ${DESTDIR}${BINDIR}/merge
+	install -c -m 555 ${PROG} ${DESTDIR}${BINDIR}/rcsclean
+	install -c -m 555 ${PROG} ${DESTDIR}${BINDIR}/rcsdiff
+	install -c -m 555 ${PROG} ${DESTDIR}${BINDIR}/rcsmerge
+	install -c -m 555 ${PROG} ${DESTDIR}${BINDIR}/rlog
 	install -c -m 444 ${PROG}.1 ${DESTDIR}${MANDIR}/man1
 	install -c -m 444 ci.1 ${DESTDIR}${MANDIR}/man1
 	install -c -m 444 co.1 ${DESTDIR}${MANDIR}/man1
@@ -47,33 +46,8 @@ install:
 	install -c -m 444 rlog.1 ${DESTDIR}${MANDIR}/man1
 	install -c -m 444 rcsfile.5 ${DESTDIR}${MANDIR}/man5
 
-deb: all
-	mkdir -p ${DESTDIR}
-	cp -r DEBIAN/ ${DESTDIR}/
-	mkdir -p ${DESTDIR}${BINDIR}
-	mkdir -p ${DESTDIR}${MANDIR}/man1
-	mkdir -p ${DESTDIR}${MANDIR}/man5
-	install ${PROG} ${DESTDIR}/${BINDIR}/${PROG}
-	install ${PROG} ${DESTDIR}/${BINDIR}/ci
-	install ${PROG} ${DESTDIR}/${BINDIR}/co
-	install ${PROG} ${DESTDIR}/${BINDIR}/ident
-	install ${PROG} ${DESTDIR}/${BINDIR}/merge
-	install ${PROG} ${DESTDIR}/${BINDIR}/rcsclean
-	install ${PROG} ${DESTDIR}/${BINDIR}/rcsdiff
-	install ${PROG} ${DESTDIR}/${BINDIR}/rcsmerge
-	install ${PROG} ${DESTDIR}/${BINDIR}/rlog
-	install ${PROG}.1 ${DESTDIR}/${MANDIR}/man1/
-	install ci.1 ${DESTDIR}/${MANDIR}/man1/
-	install co.1 ${DESTDIR}/${MANDIR}/man1/
-	install ident.1 ${DESTDIR}/${MANDIR}/man1/
-	install merge.1 ${DESTDIR}/${MANDIR}/man1/
-	install rcs.1 ${DESTDIR}/${MANDIR}/man1/
-	install rcsclean.1 ${DESTDIR}/${MANDIR}/man1/
-	install rcsdiff.1 ${DESTDIR}/${MANDIR}/man1/
-	install rcsmerge.1 ${DESTDIR}/${MANDIR}/man1/
-	install rlog.1 ${DESTDIR}/${MANDIR}/man1/
-	install rcsfile.5 ${DESTDIR}/${MANDIR}/man5/
-	/usr/bin/dpkg-deb -b ${DESTDIR} .
+test:
+	@echo "No tests"
 
 clean:
 	rm -f ${PROG} ${OBJS} date.c
