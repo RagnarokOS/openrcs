@@ -1,5 +1,5 @@
 # Makefile for OpenBSD's version of RCS (Revision Control System)
-# $Ragnarok: Makefile,v 1.5 2025/03/05 14:56:43 lecorbeau Exp $
+# $Ragnarok: Makefile,v 1.6 2025/03/05 23:56:56 lecorbeau Exp $
 
 CC ?=		cc
 CFLAGS ?=	-O2 -pipe
@@ -24,10 +24,12 @@ all: ${OBJS}
 	${CC} ${LDFLAGS} -o ${PROG} ${OBJS} ${LIBS}
 
 date.c: date.y
-	yacc date.y
+	${YACC} date.y
 	mv y.tab.c date.c
 
 install:
+	install -d ${DESTDIR}${BINDIR}
+	install -d ${DESTDIR}${MANDIR}
 	install -c -m 555 ${PROG} ${DESTDIR}${BINDIR}/${PROG}
 	install -c -m 555 ${PROG} ${DESTDIR}${BINDIR}/ci
 	install -c -m 555 ${PROG} ${DESTDIR}${BINDIR}/co
