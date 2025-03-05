@@ -1,5 +1,5 @@
 # Makefile for OpenBSD's version of RCS (Revision Control System)
-# $Ragnarok: Makefile,v 1.4 2025/03/04 19:30:50 lecorbeau Exp $
+# $Ragnarok: Makefile,v 1.5 2025/03/05 14:56:43 lecorbeau Exp $
 
 CC ?=		cc
 CFLAGS ?=	-O2 -pipe
@@ -8,6 +8,9 @@ CPPFLAGS +=
 LDFLAGS +=	
 
 LIBS =		/lib/libopenbsd/libopenbsd.a
+
+# Define which yacc to use. Default: OpenBSD's yacc.
+YACC	=	/usr/bin/oyacc
 
 BINDIR =	/usr/bin
 MANDIR =	/usr/share/man
