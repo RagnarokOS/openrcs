@@ -1,5 +1,5 @@
 # Makefile for OpenBSD's version of RCS (Revision Control System)
-# $Ragnarok: Makefile,v 1.6 2025/03/05 23:56:56 lecorbeau Exp $
+# $Ragnarok: Makefile,v 1.7 2025/03/06 00:19:12 lecorbeau Exp $
 
 CC ?=		cc
 CFLAGS ?=	-O2 -pipe
@@ -40,16 +40,16 @@ install:
 	install -c -m 555 ${PROG} ${DESTDIR}${BINDIR}/rcsmerge
 	install -c -m 555 ${PROG} ${DESTDIR}${BINDIR}/rlog
 	install -c -m 444 ${PROG}.1 ${DESTDIR}${MANDIR}/man1
-	install -c -m 444 ci.1 ${DESTDIR}${MANDIR}/man1
-	install -c -m 444 co.1 ${DESTDIR}${MANDIR}/man1
-	install -c -m 444 ident.1 ${DESTDIR}${MANDIR}/man1
-	install -c -m 444 merge.1 ${DESTDIR}${MANDIR}/man1
-	install -c -m 444 rcs.1 ${DESTDIR}${MANDIR}/man1
-	install -c -m 444 rcsclean.1 ${DESTDIR}${MANDIR}/man1
-	install -c -m 444 rcsdiff.1 ${DESTDIR}${MANDIR}/man1
-	install -c -m 444 rcsmerge.1 ${DESTDIR}${MANDIR}/man1
-	install -c -m 444 rlog.1 ${DESTDIR}${MANDIR}/man1
-	install -c -m 444 rcsfile.5 ${DESTDIR}${MANDIR}/man5
+	install -c -m 444 ci.1 ${DESTDIR}${MANDIR}/man1/
+	install -c -m 444 co.1 ${DESTDIR}${MANDIR}/man1/
+	install -c -m 444 ident.1 ${DESTDIR}${MANDIR}/man1/
+	install -c -m 444 merge.1 ${DESTDIR}${MANDIR}/man1/
+	install -c -m 444 rcs.1 ${DESTDIR}${MANDIR}/man1/
+	install -c -m 444 rcsclean.1 ${DESTDIR}${MANDIR}/man1/
+	install -c -m 444 rcsdiff.1 ${DESTDIR}${MANDIR}/man1/
+	install -c -m 444 rcsmerge.1 ${DESTDIR}${MANDIR}/man1/
+	install -c -m 444 rlog.1 ${DESTDIR}${MANDIR}/man1/
+	install -c -m 444 rcsfile.5 ${DESTDIR}${MANDIR}/man5/
 
 test:
 	@echo "No tests"
